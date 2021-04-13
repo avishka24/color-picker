@@ -1,24 +1,35 @@
-import logo from './logo.svg';
 import './App.css';
+import {useState} from "react";
+import {SketchPicker} from 'react-color'
 
 function App() {
+  const [color,setColor] = useState("#1A2330");
+  const [hidden,setHidden] = useState(false);
+
+  const pickerStyle={
+    default:{
+      picker:{
+        position:'absolute',
+        top:'30px',
+        left:'40px'
+      }
+    }
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <>
+    <h1>Color Picker</h1>
+    <div style={{background:color}} className="App">
+      <div className="picker">
+      {hidden &&
+        <SketchPicker styles={pickerStyle} color={color} onChange={(changedColor) => setColor(changedColor.hex)} />
+      }
+        <button onClick={() => setHidden(!hidden)}>
+        {hidden ? ' ' : ' '}
+        </button>
+        <p>{color}</p>
+      </div>
     </div>
+    </>
   );
 }
 
